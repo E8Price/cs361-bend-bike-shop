@@ -1,4 +1,5 @@
 class Rental
+  WEIGHT_COST_MULTIPLIER = 2
 
   attr_reader :bike
 
@@ -7,11 +8,14 @@ class Rental
   end
 
   def price
-    self.bike.price + self.bike.luggage.items.count * 10
+    base_price = bike.base_price
+    bike_weight_cost = bike.weight * WEIGHT_COST_MULTIPLIER
+    luggage_weight_cost = bike.luggage.weight * WEIGHT_COST_MULTIPLIER
+
+    base_price + bike_weight_cost + luggage_weight_cost
   end
 
   def weight
-    self.bike.weight + self.bike.luggage.items.count
+    bike.weight + bike.luggage.weight
   end
-
 end
